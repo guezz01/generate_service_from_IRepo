@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1705654807 source:c:\users\aymen.guezmir\desktop\transformoutput\main.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<vector>
+	<algorithm>
+

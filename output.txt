@@ -1,0 +1,165 @@
+#region enregistrement
+public async Task<IEnumerable<EnregistrementModel>> getEnregistrementByCode(string id, string filialeId)
+{
+List<SqlParameter> sqlParms = new List<SqlParameter>
+{
+new SqlParameter { ParameterName = "@id", Value = id }
+}
+using (var _dbContext = new GroupeDbContext(filialeId))
+{
+var result = await _dbContext.EnregistrementModels.FromSqlRaw<EnregistrementModel>("exec usp_get_doc_enregistrement @id", sqlParms.ToArray()).ToListAsync()
+return result
+}
+}
+public async Task<IEnumerable<TypeEnregistrementModel>> TypeEnregistrement(string mat, int enreg, string filialeId)
+{
+List<SqlParameter> sqlParms = new List<SqlParameter>
+{
+new SqlParameter { ParameterName = "@mat", Value = mat },
+new SqlParameter { ParameterName = "@enreg", Value = enreg == null ? 0 : enreg }
+}
+using (var _dbContext = new GroupeDbContext(filialeId))
+{
+var result = await _dbContext.TypeEnregistrementModels.FromSqlRaw<TypeEnregistrementModel>("exec usp_liste_doc_typeenreg_mat_dd @mat,@enreg",
+sqlParms.ToArray()).ToListAsync()
+return result
+}
+}
+public async Task<IsDone> addEnregistrement(AjouterEnregistrementModel model)
+{
+List<SqlParameter> sqlParms = new List<SqlParameter>
+{
+new SqlParameter { ParameterName = "@filialeId", SqlDbType = SqlDbType.NVarChar, Value = model.filialeId },
+new SqlParameter { ParameterName = "@ref_interne", SqlDbType = SqlDbType.NVarChar, Value = model.RefInterne ?? "" },
+new SqlParameter { ParameterName = "@description", SqlDbType = SqlDbType.NVarChar, Value = model.Description ?? "" },
+new SqlParameter { ParameterName = "@type_enreg", SqlDbType = SqlDbType.NVarChar, Value = model.TypeEnreg },
+new SqlParameter { ParameterName = "@mat_enreg", SqlDbType = SqlDbType.NVarChar, Value = model.MatEnreg },
+new SqlParameter { ParameterName = "@mat_etabli", SqlDbType = SqlDbType.NVarChar, Value = model.MatEtabli ?? "0" },
+new SqlParameter { ParameterName = "@date_ajout", SqlDbType = SqlDbType.DateTime, Value = model.DateAjout },
+new SqlParameter { ParameterName = "@date_enreg", SqlDbType = SqlDbType.DateTime, Value = model.DateEnreg },
+new SqlParameter { ParameterName = "@dossier", SqlDbType = SqlDbType.Int, Value = model.Dossier ?? 0 },
+new SqlParameter { ParameterName = "@codesite", SqlDbType = SqlDbType.Int, Value = model.CodeSite ?? 0 },
+new SqlParameter { ParameterName = "@process", SqlDbType = SqlDbType.Int, Value = model.Process ?? 0 },
+new SqlParameter { ParameterName = "@domaine", SqlDbType = SqlDbType.Int, Value = model.Domaine ?? 0 },
+new SqlParameter { ParameterName = "@service", SqlDbType = SqlDbType.Int, Value = model.Service ?? 0 },
+new SqlParameter { ParameterName = "@direction", SqlDbType = SqlDbType.Int, Value = model.Direction ?? 0 },
+new SqlParameter { ParameterName = "@lang", SqlDbType = SqlDbType.NVarChar, Value = model.Lang ?? "fr" },
+new SqlParameter { ParameterName = "@lien", SqlDbType = SqlDbType.NVarChar, Value = model.Lien ?? "" }
+}
+using (var _dbContext = new GroupeDbContext(model.filialeId))
+{
+var result = await _dbContext.IsDones.FromSqlRaw("exec usp_insert_doc_enregistrement @ref_interne,@description,@type_enreg,@mat_enreg," +
+"@mat_etabli,@date_ajout,@date_enreg,@dossier,@codesite,@process,@domaine,@service,@direction,@lang, @lien",
+sqlParms.ToArray()).ToListAsync()
+return result.FirstOrDefault()
+}
+}
+public async Task<IEnumerable<EnregistrementModel>> GetListEnregistrements(SearchEnregistrementModel model)
+{
+List<SqlParameter> sqlParms = new List<SqlParameter>
+{
+new SqlParameter { ParameterName = "@ref", SqlDbType = SqlDbType.NVarChar, Value = model.Ref },
+new SqlParameter { ParameterName = "@ref_interne", SqlDbType = SqlDbType.NVarChar, Value = model.RefInterne },
+new SqlParameter { ParameterName = "@description", SqlDbType = SqlDbType.NVarChar, Value = model.Description },
+new SqlParameter { ParameterName = "@type_enreg", SqlDbType = SqlDbType.NVarChar, Value = model.TypeEnreg },
+new SqlParameter { ParameterName = "@mat_enreg", SqlDbType = SqlDbType.NVarChar, Value = model.MatEnreg },
+new SqlParameter { ParameterName = "@mat_etabli", SqlDbType = SqlDbType.NVarChar, Value = model.MatEtabli },
+new SqlParameter { ParameterName = "@date_ajout1", SqlDbType = SqlDbType.NVarChar, Value = model.DateAjout1 },
+new SqlParameter { ParameterName = "@date_ajout2", SqlDbType = SqlDbType.NVarChar, Value = model.DateAjout2 },
+new SqlParameter { ParameterName = "@date_enreg1", SqlDbType = SqlDbType.NVarChar, Value = model.DateEnreg1 },
+new SqlParameter { ParameterName = "@date_enreg2", SqlDbType = SqlDbType.NVarChar, Value = model.DateEnreg2 },
+new SqlParameter { ParameterName = "@dossier", SqlDbType = SqlDbType.NVarChar, Value = model.Dossier },
+new SqlParameter { ParameterName = "@codesite", SqlDbType = SqlDbType.NVarChar, Value = model.CodeSite },
+new SqlParameter { ParameterName = "@keyword", SqlDbType = SqlDbType.NVarChar, Value = model.Keyword },
+new SqlParameter { ParameterName = "@int_ext", SqlDbType = SqlDbType.NVarChar, Value = model.IntExt },
+new SqlParameter { ParameterName = "@mat", SqlDbType = SqlDbType.NVarChar, Value = model.Mat },
+new SqlParameter { ParameterName = "@archive", SqlDbType = SqlDbType.NVarChar, Value = model.Archive },
+new SqlParameter { ParameterName = "@process", SqlDbType = SqlDbType.NVarChar, Value = model.Process },
+new SqlParameter { ParameterName = "@domaine", SqlDbType = SqlDbType.NVarChar, Value = model.Domaine },
+new SqlParameter { ParameterName = "@direction", SqlDbType = SqlDbType.NVarChar, Value = model.Direction },
+new SqlParameter { ParameterName = "@service", SqlDbType = SqlDbType.NVarChar, Value = model.Service },
+new SqlParameter { ParameterName = "@mot_rechercher", SqlDbType = SqlDbType.NVarChar, Value = model.MotRechercher },
+new SqlParameter { ParameterName = "@npage", SqlDbType = SqlDbType.Int, Value = model.Page },
+new SqlParameter { ParameterName = "@numpage", SqlDbType = SqlDbType.Int, Value = model.Size },
+new SqlParameter { ParameterName = "@orderBy", SqlDbType = SqlDbType.NVarChar, Value = model.OrderBy },
+new SqlParameter { ParameterName = "@lang", SqlDbType = SqlDbType.NVarChar, Value = model.Lang }
+}
+using (var _dbContext = new GroupeDbContext(model.FilialeId))
+{
+var result = await _dbContext.ListEnregistrements.FromSqlRaw(
+"exec usp_liste_doc_enregistrement_pagination @ref,@ref_interne,@description,@type_enreg,@mat_enreg,@mat_etabli,@date_ajout1,@date_ajout2,@date_enreg1," +
+"@date_enreg2,@dossier,@codesite,@keyword,@int_ext,@mat,@archive,@process,@domaine,@direction,@service,@mot_rechercher,@npage,@numpage,@orderBy,@lang",
+sqlParms.ToArray()).ToListAsync()
+return result
+}
+}
+#region personne informe
+public async Task<List<PersonneInformeRattacherEnregistrementModel>> getListPersonneInformeRattacher(int enregistrement, string filialeId)
+{
+var sqlParms = new List<SqlParameter>
+{
+new() { ParameterName = "@enreg", Value = enregistrement }
+}
+using (var _dbContext = new GroupeDbContext(filialeId))
+{
+var result = await _dbContext.PersonneInformeRattacherEnregistrementModels
+.FromSqlRaw("exec usp_mobile_doc_liste_enreg_info @enreg", sqlParms.ToArray()).ToListAsync()
+return result
+}
+}
+public async Task<List<Employe>> getListPersonneInformeARattacher(string? enreg, int npage, int numpage, string motRechercher, string filialeId)
+{
+var sqlParms = new List<SqlParameter>
+{
+new() { ParameterName = "@npage", Value = npage == null ? 0 : npage},
+new() { ParameterName = "@numpage", Value = numpage == null ? 1000 : numpage },
+new() { ParameterName = "@mot_rechercher", Value = motRechercher},
+new() { ParameterName = "@enreg", Value = enreg == null ? "" : enreg},
+new() { ParameterName = "@mat", Value = ""},
+new() { ParameterName = "@nom", Value = ""},
+new() { ParameterName = "@site", Value = ""},
+new() { ParameterName = "@fnc", Value = 0},
+new() { ParameterName = "@activeMultiEntreprise", Value = 1}
+}
+using (var _dbContext = new GroupeDbContext(filialeId))
+{
+var result = await _dbContext.Employes
+.FromSqlRaw("usp_mobile_doc_liste_enreg_info_notin_pagination @npage,@numpage,@mot_rechercher,@enreg,@mat,@nom,@site,@fnc,@activeMultiEntreprise", sqlParms.ToArray()).ToListAsync()
+return result
+}
+}
+public async Task<int> deletePersonneInforme(int enregistrement, string mat, string filialeId)
+{
+var sqlParms = new List<SqlParameter>
+{
+new() { ParameterName = "@id", SqlDbType = SqlDbType.Int, Value = enregistrement },
+new() { ParameterName = "@mat", SqlDbType = SqlDbType.NVarChar, Value = mat }
+}
+using (var _dbContext = new GroupeDbContext(filialeId))
+{
+var result =
+await _dbContext.Database.ExecuteSqlRawAsync("exec usp_mobile_doc_supp_enreg_info @id, @mat",
+sqlParms.ToArray())
+return result
+}
+}
+public async Task<int> addPersonneInforme(int enregistrement, string mat, int? idFiliale, string nomFiliale, string filialeId)
+{
+var sqlParms = new List<SqlParameter>
+{
+new() { ParameterName = "@enreg", Value = enregistrement },
+new() { ParameterName = "@mat", Value = mat },
+new() { ParameterName = "@vu", Value = 0 },
+new() { ParameterName = "@origine", Value = 1 },
+new() { ParameterName = "@id_filiale", Value = idFiliale ?? 0 },
+new() { ParameterName = "@nom_filiale", Value = nomFiliale ?? "" },
+}
+using (var _dbContext = new GroupeDbContext(filialeId))
+{
+var result = await _dbContext.Database.ExecuteSqlRawAsync(
+"insert into tab_doc_enreg_info_autrefiliale (enreg,mat,vu,origine,id_filiale,nom_filiale) values (@enreg,@mat,@vu,@origine,@id_filiale,@nom_filiale)", sqlParms.ToArray())
+return result
+}
+}
+#endregion personne informe
+#endregion enregistrement

@@ -1,0 +1,160 @@
+#region enregistrement
+public async public async Task<IEnumerable<EnregistrementModel>> getEnregistrementByCode(string id, string filialeId){
+	return await _repository.async Task<IEnumerable<EnregistrementModel>> getEnregistrementByCode(id, filialeId);
+}
+
+public async using (var _dbContext = new GroupeDbContext(filialeId){
+	return await _repository.(GroupeDbContext(filialeId);
+}
+
+public async var result = await _dbContext.EnregistrementModels.FromSqlRaw<EnregistrementModel>("exec usp_get_doc_enregistrement @id", sqlParms.ToArray(){
+	return await _repository.result = await _dbContext.EnregistrementModels.FromSqlRaw<EnregistrementModel>(@id", sqlParms.ToArray();
+}
+
+public async public async Task<IEnumerable<TypeEnregistrementModel>> TypeEnregistrement(string mat, int enreg, string filialeId){
+	return await _repository.async Task<IEnumerable<TypeEnregistrementModel>> TypeEnregistrement(mat, enreg, filialeId);
+}
+
+public async using (var _dbContext = new GroupeDbContext(filialeId){
+	return await _repository.(GroupeDbContext(filialeId);
+}
+
+public async public async Task<IsDone> addEnregistrement(AjouterEnregistrementModel model){
+	return await _repository.async Task<IsDone> addEnregistrement(model);
+}
+
+public async using (var _dbContext = new GroupeDbContext(model.filialeId){
+	return await _repository.(GroupeDbContext(model.filialeId);
+}
+
+public async return result.FirstOrDefault(){
+	return await _repository.result.FirstOrDefault();
+}
+
+public async public async Task<IEnumerable<EnregistrementModel>> GetListEnregistrements(SearchEnregistrementModel model){
+	return await _repository.async Task<IEnumerable<EnregistrementModel>> GetListEnregistrements(model);
+}
+
+public async using (var _dbContext = new GroupeDbContext(model.FilialeId){
+	return await _repository.(GroupeDbContext(model.FilialeId);
+}
+
+#region personne informe
+public async public async Task<List<PersonneInformeRattacherEnregistrementModel>> getListPersonneInformeRattacher(int enregistrement, string filialeId){
+	return await _repository.async Task<List<PersonneInformeRattacherEnregistrementModel>> getListPersonneInformeRattacher(enregistrement, filialeId);
+}
+
+public async new() { ParameterName = "@enreg", Value = enregistrement }(){
+	return await _repository.{ ParameterName = "@enreg", Value = enregistrement }();
+}
+
+public async using (var _dbContext = new GroupeDbContext(filialeId){
+	return await _repository.(GroupeDbContext(filialeId);
+}
+
+public async .FromSqlRaw("exec usp_mobile_doc_liste_enreg_info @enreg", sqlParms.ToArray()).ToListAsync()("exec usp_mobile_doc_liste_enreg_info @enreg", sqlParms.ToArray(){
+	return await _repository.usp_mobile_doc_liste_enreg_info @enreg", sqlParms.ToArray()).ToListAsync()(@enreg", sqlParms.ToArray();
+}
+
+public async public async Task<List<Employe>> getListPersonneInformeARattacher(string? enreg, int npage, int numpage, string motRechercher, string filialeId){
+	return await _repository.async Task<List<Employe>> getListPersonneInformeARattacher(enreg, npage, numpage, motRechercher, filialeId);
+}
+
+public async new() { ParameterName = "@npage", Value = npage == null ? 0 : npage},(){
+	return await _repository.{ ParameterName = "@npage", Value = npage == null ? 0 : npage},();
+}
+
+public async new() { ParameterName = "@numpage", Value = numpage == null ? 1000 : numpage },(){
+	return await _repository.{ ParameterName = "@numpage", Value = numpage == null ? 1000 : numpage },();
+}
+
+public async new() { ParameterName = "@mot_rechercher", Value = motRechercher},(){
+	return await _repository.{ ParameterName = "@mot_rechercher", Value = motRechercher},();
+}
+
+public async new() { ParameterName = "@enreg", Value = enreg == null ? "" : enreg},(){
+	return await _repository.{ ParameterName = "@enreg", Value = enreg == null ? "" : enreg},();
+}
+
+public async new() { ParameterName = "@mat", Value = ""},(){
+	return await _repository.{ ParameterName = "@mat", Value = ""},();
+}
+
+public async new() { ParameterName = "@nom", Value = ""},(){
+	return await _repository.{ ParameterName = "@nom", Value = ""},();
+}
+
+public async new() { ParameterName = "@site", Value = ""},(){
+	return await _repository.{ ParameterName = "@site", Value = ""},();
+}
+
+public async new() { ParameterName = "@fnc", Value = 0},(){
+	return await _repository.{ ParameterName = "@fnc", Value = 0},();
+}
+
+public async new() { ParameterName = "@activeMultiEntreprise", Value = 1}(){
+	return await _repository.{ ParameterName = "@activeMultiEntreprise", Value = 1}();
+}
+
+public async using (var _dbContext = new GroupeDbContext(filialeId){
+	return await _repository.(GroupeDbContext(filialeId);
+}
+
+public async .FromSqlRaw("usp_mobile_doc_liste_enreg_info_notin_pagination @npage,@numpage,@mot_rechercher,@enreg,@mat,@nom,@site,@fnc,@activeMultiEntreprise", sqlParms.ToArray()).ToListAsync()("usp_mobile_doc_liste_enreg_info_notin_pagination @npage,@numpage,@mot_rechercher,@enreg,@mat,@nom,@site,@fnc,@activeMultiEntreprise", sqlParms.ToArray(){
+	return await _repository.@npage,@numpage,@mot_rechercher,@enreg,@mat,@nom,@site,@fnc,@activeMultiEntreprise", sqlParms.ToArray()).ToListAsync()(@npage, @numpage, @mot_rechercher, @enreg, @mat, @nom, @site, @fnc, @activeMultiEntreprise", sqlParms.ToArray();
+}
+
+public async public async Task<int> deletePersonneInforme(int enregistrement, string mat, string filialeId){
+	return await _repository.async Task<int> deletePersonneInforme(enregistrement, mat, filialeId);
+}
+
+public async new() { ParameterName = "@id", SqlDbType = SqlDbType.Int, Value = enregistrement },(){
+	return await _repository.{ ParameterName = "@id", SqlDbType = SqlDbType.Int, Value = enregistrement },();
+}
+
+public async new() { ParameterName = "@mat", SqlDbType = SqlDbType.NVarChar, Value = mat }(){
+	return await _repository.{ ParameterName = "@mat", SqlDbType = SqlDbType.NVarChar, Value = mat }();
+}
+
+public async using (var _dbContext = new GroupeDbContext(filialeId){
+	return await _repository.(GroupeDbContext(filialeId);
+}
+
+public async public async Task<int> addPersonneInforme(int enregistrement, string mat, int? idFiliale, string nomFiliale, string filialeId){
+	return await _repository.async Task<int> addPersonneInforme(enregistrement, mat, idFiliale, nomFiliale, filialeId);
+}
+
+public async new() { ParameterName = "@enreg", Value = enregistrement },(){
+	return await _repository.{ ParameterName = "@enreg", Value = enregistrement },();
+}
+
+public async new() { ParameterName = "@mat", Value = mat },(){
+	return await _repository.{ ParameterName = "@mat", Value = mat },();
+}
+
+public async new() { ParameterName = "@vu", Value = 0 },(){
+	return await _repository.{ ParameterName = "@vu", Value = 0 },();
+}
+
+public async new() { ParameterName = "@origine", Value = 1 },(){
+	return await _repository.{ ParameterName = "@origine", Value = 1 },();
+}
+
+public async new() { ParameterName = "@id_filiale", Value = idFiliale ?? 0 },(){
+	return await _repository.{ ParameterName = "@id_filiale", Value = idFiliale ?? 0 },();
+}
+
+public async new() { ParameterName = "@nom_filiale", Value = nomFiliale ?? "" },(){
+	return await _repository.{ ParameterName = "@nom_filiale", Value = nomFiliale ?? "" },();
+}
+
+public async using (var _dbContext = new GroupeDbContext(filialeId){
+	return await _repository.(GroupeDbContext(filialeId);
+}
+
+public async "insert into tab_doc_enreg_info_autrefiliale (enreg,mat,vu,origine,id_filiale,nom_filiale){
+	return await _repository.into tab_doc_enreg_info_autrefiliale (enreg, mat, vu, origine, id_filiale, nom_filiale);
+}
+
+#endregion personne informe
+#endregion enregistrement
